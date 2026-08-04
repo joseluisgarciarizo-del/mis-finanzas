@@ -1,0 +1,187 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f4f6f5;
+  color: #1a1a1a;
+}
+
+.pantalla-centrada {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.tarjeta {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  max-width: 420px;
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  background: #0f766e;
+  color: white;
+}
+
+button:disabled { opacity: 0.6; }
+
+.enlace {
+  background: none;
+  color: #0f766e;
+  text-decoration: underline;
+  padding: 0.4rem 0;
+}
+
+.mensaje-error {
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+
+.panel { max-width: 480px; margin: 0 auto; padding: 1rem; }
+
+.encabezado-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.pestanas {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pestanas button {
+  flex: 1;
+  background: #e5e7eb;
+  color: #1a1a1a;
+}
+
+.pestanas button.activo {
+  background: #0f766e;
+  color: white;
+}
+
+.selector-tipo {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.selector-tipo button {
+  flex: 1;
+  background: #e5e7eb;
+  color: #1a1a1a;
+}
+
+.selector-tipo button.activo {
+  background: #0f766e;
+  color: white;
+}
+
+.selector-fecha { margin-bottom: 1rem; }
+
+.lista-transacciones, .lista-categorias, .lista-subcategorias, .lista-por-categoria {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-transaccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.monto-acciones { display: flex; align-items: center; gap: 0.5rem; }
+.monto-positivo { color: #15803d; font-weight: 600; }
+.monto-negativo { color: #b91c1c; font-weight: 600; }
+.descripcion { font-size: 0.8rem; color: #6b7280; margin: 0.2rem 0 0; }
+
+.boton-eliminar, .boton-eliminar-pequeno {
+  background: none;
+  color: #b91c1c;
+  padding: 0.2rem 0.4rem;
+}
+
+.texto-vacio { color: #6b7280; text-align: center; }
+
+.fila-formulario { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.fila-formulario.pequena input { padding: 0.4rem; }
+
+.item-categoria {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.75rem 0;
+}
+
+.encabezado-categoria {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.etiqueta {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+.etiqueta.ingreso { background: #dcfce7; color: #15803d; }
+.etiqueta.gasto { background: #fee2e2; color: #b91c1c; }
+
+.lista-subcategorias { margin: 0.4rem 0 0.4rem 1rem; }
+.lista-subcategorias li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  padding: 0.15rem 0;
+}
+
+.fila-resumen {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.etiqueta-resumen { font-size: 0.8rem; color: #6b7280; }
+
+.lista-por-categoria li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
