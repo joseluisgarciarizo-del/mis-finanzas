@@ -81,7 +81,7 @@ button:disabled { opacity: 0.6; }
 
 .pestanas button {
   flex: 1;
-  background: #e5e7eb;
+  background: #ffffff;
   color: #1a1a1a;
 }
 
@@ -98,7 +98,7 @@ button:disabled { opacity: 0.6; }
 
 .selector-tipo button {
   flex: 1;
-  background: #e5e7eb;
+  background: #fffffff;
   color: #1a1a1a;
 }
 
@@ -139,7 +139,7 @@ button:disabled { opacity: 0.6; }
 
 .texto-vacio { color: #6b7280; text-align: center; }
 
-.fila-formulario { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.fila-formulario { display: flex; gap: 0.5rem; margin-bottom: 1rem;w }
 .fila-formulario.pequena input { padding: 0.4rem; }
 
 .item-categoria {
