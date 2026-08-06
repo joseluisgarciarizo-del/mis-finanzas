@@ -86,7 +86,7 @@ button:disabled { opacity: 0.6; }
 }
 
 .pestanas button.activo {
-  background: #0f766e;
+  background: #4c3399;
   color: white;
 }
 
@@ -98,12 +98,12 @@ button:disabled { opacity: 0.6; }
 
 .selector-tipo button {
   flex: 1;
-  background: #fffffff;
+  background: #ffffff;
   color: #1a1a1a;
 }
 
 .selector-tipo button.activo {
-  background: #0f766e;
+  background: #4c3399;
   color: white;
 }
 
