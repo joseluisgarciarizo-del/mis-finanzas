@@ -46,7 +46,7 @@ button {
   border-radius: 8px;
   padding: 0.6rem 1rem;
   font-size: 0.95rem;
-  background: #0f766e;
+  background: #4c3399;
   color: white;
 }
 
@@ -59,7 +59,7 @@ button:disabled { opacity: 0.6; }
   padding: 0.4rem 0;
 }
 
-.mensaje-error {
+.menwsaje-error {
   color: #b91c1c;
   font-size: 0.85rem;
 }
