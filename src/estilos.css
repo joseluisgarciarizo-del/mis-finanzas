@@ -103,7 +103,7 @@ button:disabled { opacity: 0.6; }
 }
 
 .selector-tipo button.activo {
-  background: #3E5C86;
+  background: #C1682F;
   color: white;
 }
 
