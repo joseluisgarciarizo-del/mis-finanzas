@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { cerrarSesion } from '../services/authService'
+import { eliminarTodasTransacciones } from '../services/transaccionesService'
+import { eliminarTodasCategorias } from '../services/categoriasService'
 import { obtenerCategorias } from '../services/categoriasService'
 import { obtenerTransaccionesPorFecha, obtenerResumenMensual } from '../services/transaccionesService'
 import FormularioTransaccion from '../components/FormularioTransaccion'
