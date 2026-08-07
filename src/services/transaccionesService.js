@@ -88,3 +88,14 @@ export async function obtenerResumenMensual(anio, mes) {
     transacciones: data
   }
 }
+export async function eliminarTodasTransacciones() {
+  const { data: usuario } = await supabase.auth.getUser()
+  if (!usuario?.user) throw new Error('No hay sesión activa')
+
+  const { error } = await supabase
+    .from('transacciones')
+    .delete()
+    .eq('usuario_id', usuario.user.id)
+
+  if (error) throw new Error(error.message)
+}
