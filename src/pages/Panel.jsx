@@ -21,6 +21,24 @@ export default function Panel() {
   const [mesSeleccionado, setMesSeleccionado] = useState(hoy.getMonth() + 1)
   const [anioSeleccionado, setAnioSeleccionado] = useState(hoy.getFullYear())
   const [error, setError] = useState('')
+  async function handleBorrarTodo() {
+    const pin = window.prompt('Ingresa el PIN para borrar todos los datos:')
+    if (pin === null) return
+    if (pin !== '7451') {
+      alert('PIN incorrecto')
+      return
+    }
+    const confirmar = window.confirm('¿Seguro que quieres borrar TODOS los datos? Esta acción no se puede deshacer.')
+    if (!confirmar) return
+    try {
+      await eliminarTodasTransacciones()
+      await eliminarTodasCategorias()
+      alert('Todos los datos fueron borrados.')
+      window.location.reload()
+    } catch (err) {
+      alert('Error al borrar: ' + err.message)
+    }
+  }
 
   const cargarCategorias = useCallback(async () => {
     try {
