@@ -73,6 +73,7 @@ export default function Panel() {
       <header className="encabezado-panel">
         <h1>Mis Finanzas</h1>
         <button onClick={cerrarSesion} className="enlace">Cerrar sesión</button>
+        <button onClick={handleBorrarTodo} className="enlace">Borrar todos los datos</button>
       </header>
 
       <nav className="pestanas">
