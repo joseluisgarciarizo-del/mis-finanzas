@@ -279,3 +279,35 @@ h1 { color: #26324A; font-family: 'Barlow Condensed', sans-serif; }
   border-radius: 4px;
   font-size: 0.95rem;
 }
+.titulo-reporte {
+  display: none;
+}
+
+@media print {
+  body {
+    background: #ffffff;
+  }
+
+  .no-imprimir {
+    display: none !important;
+  }
+
+  .titulo-reporte {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    color: #26324A;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+
+  .tarjeta {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+
+  .item-detalle-mes {
+    break-inside: avoid;
+  }
+}
