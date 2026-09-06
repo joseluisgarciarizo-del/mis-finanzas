@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { crearTransaccion } from '../services/transaccionesService'
+import { useState, useEffect } from 'react'
+import { crearTransaccion, editarTransaccion } from '../services/transaccionesService'
 
-export default function FormularioTransaccion({ categorias, onGuardado }) {
+export default function FormularioTransaccion({ categorias, onGuardado, transaccionEditando, onCancelar }) {
   const [tipo, setTipo] = useState('gasto')
   const [categoriaId, setCategoriaId] = useState('')
   const [subcategoriaId, setSubcategoriaId] = useState('')
@@ -11,24 +11,57 @@ export default function FormularioTransaccion({ categorias, onGuardado }) {
   const [guardando, setGuardando] = useState(false)
   const [error, setError] = useState('')
 
+  const editando = Boolean(transaccionEditando)
+
+  useEffect(() => {
+    if (transaccionEditando) {
+      setTipo(transaccionEditando.tipo)
+      setCategoriaId(transaccionEditando.categoria_id || '')
+      setSubcategoriaId(transaccionEditando.subcategoria_id || '')
+      setMonto(String(transaccionEditando.monto))
+      setFecha(transaccionEditando.fecha)
+      setDescripcion(transaccionEditando.descripcion || '')
+    }
+  }, [transaccionEditando])
+
   const categoriasFiltradas = categorias.filter(c => c.tipo === tipo)
   const categoriaSeleccionada = categorias.find(c => c.id === categoriaId)
+
+  function limpiarFormulario() {
+    setMonto('')
+    setDescripcion('')
+    setCategoriaId('')
+    setSubcategoriaId('')
+    setTipo('gasto')
+    setFecha(new Date().toISOString().slice(0, 10))
+  }
 
   async function manejarEnvio(e) {
     e.preventDefault()
     setError('')
     setGuardando(true)
     try {
-      await crearTransaccion({
-        categoria_id: categoriaId,
-        subcategoria_id: subcategoriaId || null,
-        monto: Number(monto),
-        fecha,
-        descripcion,
-        tipo
-      })
-      setMonto('')
-      setDescripcion('')
+      if (editando) {
+        await editarTransaccion(transaccionEditando.id, {
+          categoria_id: categoriaId,
+          subcategoria_id: subcategoriaId || null,
+          monto: Number(monto),
+          fecha,
+          descripcion,
+          tipo
+        })
+        onCancelar?.()
+      } else {
+        await crearTransaccion({
+          categoria_id: categoriaId,
+          subcategoria_id: subcategoriaId || null,
+          monto: Number(monto),
+          fecha,
+          descripcion,
+          tipo
+        })
+      }
+      limpiarFormulario()
       onGuardado?.()
     } catch (err) {
       setError(err.message)
@@ -39,6 +72,8 @@ export default function FormularioTransaccion({ categorias, onGuardado }) {
 
   return (
     <form onSubmit={manejarEnvio} className="tarjeta">
+      {editando && <p className="aviso-edicion">Editando registro</p>}
+
       <div className="selector-tipo">
         <button
           type="button"
@@ -111,9 +146,16 @@ export default function FormularioTransaccion({ categorias, onGuardado }) {
 
       {error && <p className="mensaje-error">{error}</p>}
 
-      <button type="submit" disabled={guardando}>
-        {guardando ? 'Guardando...' : 'Guardar'}
-      </button>
+      <div className="fila-formulario">
+        <button type="submit" disabled={guardando}>
+          {guardando ? 'Guardando...' : editando ? 'Actualizar' : 'Guardar'}
+        </button>
+        {editando && (
+          <button type="button" onClick={() => { onCancelar?.(); limpiarFormulario() }}>
+            Cancelar
+          </button>
+        )}
+      </div>
     </form>
   )
 }
