@@ -25,10 +25,12 @@ export default function ResumenMensual({ resumen }) {
 
       <h3>Por categoría</h3>
       <ul className="lista-por-categoria">
-        {Object.entries(porCategoria).map(([nombre, monto]) => (
+        {Object.entries(porCategoria).map(([nombre, info]) => (
           <li key={nombre}>
             <span>{nombre}</span>
-            <span>${monto.toLocaleString('es-CO')}</span>
+            <span className={info.tipo === 'ingreso' ? 'monto-positivo' : 'monto-negativo'}>
+              ${info.monto.toLocaleString('es-CO')}
+            </span>
           </li>
         ))}
       </ul>
