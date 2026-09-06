@@ -245,3 +245,37 @@ h1 { color: #26324A; font-family: 'Barlow Condensed', sans-serif; }
   font-weight: 600;
   margin-bottom: 12px;
 }
+.boton-editar-pequeno {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #3E5C86;
+  padding: 2px 6px;
+}
+
+.boton-guardar-pequeno {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #2e7d32;
+  padding: 2px 6px;
+}
+
+.boton-cancelar-pequeno {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #C1682F;
+  padding: 2px 6px;
+}
+
+.input-edicion-categoria {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid #3E5C86;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
