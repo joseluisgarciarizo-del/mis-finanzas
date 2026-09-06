@@ -77,7 +77,10 @@ export async function obtenerResumenMensual(anio, mes) {
   const porCategoria = {}
   for (const t of data) {
     const nombre = t.categorias?.nombre || 'Sin categoría'
-    porCategoria[nombre] = (porCategoria[nombre] || 0) + Number(t.monto)
+    if (!porCategoria[nombre]) {
+      porCategoria[nombre] = { monto: 0, tipo: t.tipo }
+    }
+    porCategoria[nombre].monto += Number(t.monto)
   }
 
   return {
