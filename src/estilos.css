@@ -228,3 +228,20 @@ button:disabled { opacity: 0.6; }
 }
 
 h1 { color: #26324A; font-family: 'Barlow Condensed', sans-serif; }
+.boton-editar {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #3E5C86;
+  padding: 4px 8px;
+}
+
+.aviso-edicion {
+  background: #FFF3E0;
+  color: #C1682F;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
