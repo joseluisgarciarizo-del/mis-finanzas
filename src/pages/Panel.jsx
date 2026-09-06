@@ -21,6 +21,8 @@ export default function Panel() {
   const [mesSeleccionado, setMesSeleccionado] = useState(hoy.getMonth() + 1)
   const [anioSeleccionado, setAnioSeleccionado] = useState(hoy.getFullYear())
   const [error, setError] = useState('')
+  const [transaccionEditando, setTransaccionEditando] = useState(null)
+
   async function handleBorrarTodo() {
     const pin = window.prompt('Ingresa el PIN para borrar todos los datos:')
     if (pin === null) return
@@ -68,6 +70,11 @@ export default function Panel() {
   useEffect(() => { if (pestana === 'dia') cargarTransaccionesDia() }, [pestana, cargarTransaccionesDia])
   useEffect(() => { if (pestana === 'mes') cargarResumenMes() }, [pestana, cargarResumenMes])
 
+  function manejarGuardadoDia() {
+    cargarTransaccionesDia()
+    cargarResumenMes()
+  }
+
   return (
     <div className="panel">
       <header className="encabezado-panel">
@@ -92,8 +99,17 @@ export default function Panel() {
             onChange={(e) => setFechaSeleccionada(e.target.value)}
             className="selector-fecha"
           />
-          <FormularioTransaccion categorias={categorias} onGuardado={cargarTransaccionesDia} />
-          <ListaTransacciones transacciones={transaccionesDia} onCambio={cargarTransaccionesDia} />
+          <FormularioTransaccion
+            categorias={categorias}
+            onGuardado={manejarGuardadoDia}
+            transaccionEditando={transaccionEditando}
+            onCancelar={() => setTransaccionEditando(null)}
+          />
+          <ListaTransacciones
+            transacciones={transaccionesDia}
+            onCambio={manejarGuardadoDia}
+            onEditar={(t) => setTransaccionEditando(t)}
+          />
         </>
       )}
 
