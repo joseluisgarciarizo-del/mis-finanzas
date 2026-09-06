@@ -1,11 +1,24 @@
 import { useState } from 'react'
-import { crearCategoria, crearSubcategoria, eliminarCategoria, eliminarSubcategoria } from '../services/categoriasService'
+import {
+  crearCategoria,
+  crearSubcategoria,
+  eliminarCategoria,
+  eliminarSubcategoria,
+  editarCategoria,
+  editarSubcategoria
+} from '../services/categoriasService'
 
 export default function GestorCategorias({ categorias, onCambio }) {
   const [nombreNueva, setNombreNueva] = useState('')
   const [tipoNueva, setTipoNueva] = useState('gasto')
   const [error, setError] = useState('')
   const [subInputs, setSubInputs] = useState({})
+
+  const [categoriaEditandoId, setCategoriaEditandoId] = useState(null)
+  const [nombreEditado, setNombreEditado] = useState('')
+
+  const [subcategoriaEditandoId, setSubcategoriaEditandoId] = useState(null)
+  const [nombreSubEditado, setNombreSubEditado] = useState('')
 
   async function agregarCategoria(e) {
     e.preventDefault()
@@ -42,6 +55,38 @@ export default function GestorCategorias({ categorias, onCambio }) {
     }
   }
 
+  function iniciarEdicionCategoria(c) {
+    setCategoriaEditandoId(c.id)
+    setNombreEditado(c.nombre)
+  }
+
+  async function guardarEdicionCategoria(id) {
+    if (!nombreEditado.trim()) return
+    try {
+      await editarCategoria(id, { nombre: nombreEditado.trim() })
+      setCategoriaEditandoId(null)
+      onCambio?.()
+    } catch (err) {
+      setError('No se pudo editar: ' + err.message)
+    }
+  }
+
+  function iniciarEdicionSubcategoria(s) {
+    setSubcategoriaEditandoId(s.id)
+    setNombreSubEditado(s.nombre)
+  }
+
+  async function guardarEdicionSubcategoria(id) {
+    if (!nombreSubEditado.trim()) return
+    try {
+      await editarSubcategoria(id, nombreSubEditado.trim())
+      setSubcategoriaEditandoId(null)
+      onCambio?.()
+    } catch (err) {
+      setError('No se pudo editar: ' + err.message)
+    }
+  }
+
   return (
     <div className="tarjeta">
       <h2>Categorías</h2>
@@ -66,21 +111,53 @@ export default function GestorCategorias({ categorias, onCambio }) {
         {categorias.map(c => (
           <li key={c.id} className="item-categoria">
             <div className="encabezado-categoria">
-              <strong>{c.nombre}</strong>
-              <span className={`etiqueta ${c.tipo}`}>{c.tipo}</span>
-              <button onClick={() => manejarEliminarCategoria(c.id)} className="boton-eliminar">✕</button>
+              {categoriaEditandoId === c.id ? (
+                <>
+                  <input
+                    type="text"
+                    value={nombreEditado}
+                    onChange={(e) => setNombreEditado(e.target.value)}
+                    className="input-edicion-categoria"
+                  />
+                  <button onClick={() => guardarEdicionCategoria(c.id)} className="boton-guardar-pequeno">✓</button>
+                  <button onClick={() => setCategoriaEditandoId(null)} className="boton-cancelar-pequeno">✕</button>
+                </>
+              ) : (
+                <>
+                  <strong>{c.nombre}</strong>
+                  <span className={`etiqueta ${c.tipo}`}>{c.tipo}</span>
+                  <button onClick={() => iniciarEdicionCategoria(c)} className="boton-editar">✎</button>
+                  <button onClick={() => manejarEliminarCategoria(c.id)} className="boton-eliminar">✕</button>
+                </>
+              )}
             </div>
 
             <ul className="lista-subcategorias">
               {c.subcategorias?.map(s => (
                 <li key={s.id}>
-                  {s.nombre}
-                  <button
-                    onClick={async () => { await eliminarSubcategoria(s.id); onCambio?.() }}
-                    className="boton-eliminar-pequeno"
-                  >
-                    ✕
-                  </button>
+                  {subcategoriaEditandoId === s.id ? (
+                    <>
+                      <input
+                        type="text"
+                        value={nombreSubEditado}
+                        onChange={(e) => setNombreSubEditado(e.target.value)}
+                        className="input-edicion-categoria"
+                      />
+                      <button onClick={() => guardarEdicionSubcategoria(s.id)} className="boton-guardar-pequeno">✓</button>
+                      <button onClick={() => setSubcategoriaEditandoId(null)} className="boton-cancelar-pequeno">✕</button>
+                    </>
+                  ) : (
+                    <>
+                      {s.nombre}
+                      <button onClick={() => iniciarEdicionSubcategoria(s)} className="boton-editar-pequeno">✎</button>
+                      <button
+                        onClick={async () => { await eliminarSubcategoria(s.id); onCambio?.() }}
+                        className="boton-eliminar-pequeno"
+                      >
+                        ✕
+                      </button>
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
