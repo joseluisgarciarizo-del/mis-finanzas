@@ -1,6 +1,6 @@
 import { eliminarTransaccion } from '../services/transaccionesService'
 
-export default function ListaTransacciones({ transacciones, onCambio }) {
+export default function ListaTransacciones({ transacciones, onCambio, onEditar }) {
   async function manejarEliminar(id) {
     if (!confirm('¿Eliminar este registro?')) return
     try {
@@ -28,6 +28,7 @@ export default function ListaTransacciones({ transacciones, onCambio }) {
             <span className={t.tipo === 'ingreso' ? 'monto-positivo' : 'monto-negativo'}>
               {t.tipo === 'ingreso' ? '+' : '-'}${Number(t.monto).toLocaleString('es-CO')}
             </span>
+            <button onClick={() => onEditar?.(t)} className="boton-editar">✎</button>
             <button onClick={() => manejarEliminar(t.id)} className="boton-eliminar">✕</button>
           </div>
         </li>
