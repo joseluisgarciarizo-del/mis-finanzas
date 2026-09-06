@@ -56,6 +56,18 @@ export async function eliminarSubcategoria(id) {
   const { error } = await supabase.from('subcategorias').delete().eq('id', id)
   if (error) throw new Error(error.message)
 }
+
+export async function editarSubcategoria(id, nombre) {
+  const { data, error } = await supabase
+    .from('subcategorias')
+    .update({ nombre })
+    .eq('id', id)
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  return data
+}
 export async function eliminarTodasCategorias() {
   const { data: usuario } = await supabase.auth.getUser()
   if (!usuario?.user) throw new Error('No hay sesión activa')
